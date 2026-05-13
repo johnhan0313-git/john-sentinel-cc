@@ -1,0 +1,22 @@
+# 生产环境配置
+spring:
+  application:
+    name: john-sentinel-cc-prod
+
+# Sentinel 生产环境配置
+spring.cloud.sentinel:
+  transport:
+    # 生产环境 Dashboard 地址（需要替换为实际地址）
+    dashboard: sentinel-dashboard.prod.com:8080
+    port: 8719
+  log:
+    dir: /var/logs/sentinel
+
+# 日志配置
+logging:
+  level:
+    root: WARN
+    com.john.sentinel: INFO
+    com.alibaba.csp.sentinel: WARN
+  file:
+    name: /var/logs/application.log

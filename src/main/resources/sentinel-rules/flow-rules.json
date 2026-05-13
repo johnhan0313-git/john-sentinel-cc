@@ -1,0 +1,44 @@
+[
+  {
+    "resource": "createOrder",
+    "grade": 1,
+    "count": 100,
+    "limitApp": "default",
+    "strategy": 0,
+    "controlBehavior": 0
+  },
+  {
+    "resource": "queryOrder",
+    "grade": 1,
+    "count": 200,
+    "limitApp": "default",
+    "strategy": 0,
+    "controlBehavior": 1,
+    "warmUpPeriodSec": 10
+  },
+  {
+    "resource": "processPayment",
+    "grade": 0,
+    "count": 50,
+    "limitApp": "default",
+    "strategy": 0,
+    "controlBehavior": 0
+  },
+  {
+    "resource": "registerUser",
+    "grade": 1,
+    "count": 10,
+    "limitApp": "default",
+    "strategy": 0,
+    "controlBehavior": 2,
+    "maxQueueingTimeMs": 5000
+  },
+  {
+    "resource": "callThirdPartyApi",
+    "grade": 1,
+    "count": 20,
+    "limitApp": "default",
+    "strategy": 0,
+    "controlBehavior": 0
+  }
+]

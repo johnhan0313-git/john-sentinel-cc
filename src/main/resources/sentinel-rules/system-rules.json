@@ -1,0 +1,14 @@
+[
+  {
+    "highestCpuUsage": 0.8
+  },
+  {
+    "avgRt": 1000
+  },
+  {
+    "maxThread": 200
+  },
+  {
+    "qps": 500
+  }
+]

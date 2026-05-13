@@ -1,0 +1,19 @@
+# 开发环境配置
+spring:
+  application:
+    name: john-sentinel-cc-dev
+
+# Sentinel 开发环境配置
+spring.cloud.sentinel:
+  transport:
+    dashboard: localhost:8080
+    port: 8719
+  log:
+    dir: logs/sentinel-dev
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.john.sentinel: DEBUG
+    com.alibaba.csp.sentinel: DEBUG

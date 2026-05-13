@@ -1,0 +1,27 @@
+[
+  {
+    "resource": "queryDatabase",
+    "grade": 0,
+    "count": 500,
+    "timeWindow": 10,
+    "minRequestAmount": 5,
+    "slowRatioThreshold": 0.5,
+    "statIntervalMs": 1000
+  },
+  {
+    "resource": "callThirdPartyApi",
+    "grade": 1,
+    "count": 0.3,
+    "timeWindow": 15,
+    "minRequestAmount": 5,
+    "statIntervalMs": 1000
+  },
+  {
+    "resource": "processPayment",
+    "grade": 2,
+    "count": 10,
+    "timeWindow": 30,
+    "minRequestAmount": 5,
+    "statIntervalMs": 60000
+  }
+]
