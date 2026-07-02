@@ -1,0 +1,39 @@
+# =============================================================================
+# Prometheus 监控配置
+# =============================================================================
+# 启用：--spring.profiles.active=dev,prometheus
+#        或 prod-nacos-observability
+#
+# 暴露端点：
+#   /actuator/prometheus          Spring Boot + JVM 指标（Micrometer）
+#   http://host:9092/metrics     Sentinel 原生指标（passQps/blockQps/rt 等）
+# =============================================================================
+
+sentinel:
+  prometheus:
+    enabled: true
+    port: 9092
+    fetch-types: passQps|blockQps|exceptionQps|rt|concurrency
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+      instance: ${HOSTNAME:localhost}:${server.port}
+    export:
+      simple:
+        enabled: false
+      prometheus:
+        enabled: true
+
+# 生产环境可关闭 Dashboard 心跳，仅保留 Prometheus 采集
+spring.cloud.sentinel:
+  transport:
+    dashboard: ${SENTINEL_DASHBOARD:}

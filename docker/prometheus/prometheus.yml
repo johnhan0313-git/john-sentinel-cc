@@ -1,0 +1,46 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Spring Boot Actuator：JVM、HTTP、Tomcat 等 Micrometer 指标
+  - job_name: spring-boot
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets:
+          - host.docker.internal:8088
+        labels:
+          application: john-sentinel-cc
+          env: dev
+
+  # Sentinel 官方 Exporter：passQps / blockQps / rt / concurrency 等资源级指标
+  - job_name: sentinel-metrics
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - host.docker.internal:9092
+        labels:
+          application: john-sentinel-cc
+          env: dev
+
+  # 多实例示例（同机不同端口部署时取消注释）
+  # - job_name: spring-boot-cluster
+  #   metrics_path: /actuator/prometheus
+  #   static_configs:
+  #     - targets: ['host.docker.internal:8088', 'host.docker.internal:8089']
+  #       labels:
+  #         application: john-sentinel-cc
+  #
+  # - job_name: sentinel-metrics-cluster
+  #   metrics_path: /metrics
+  #   static_configs:
+  #     - targets: ['host.docker.internal:9092', 'host.docker.internal:9093']
+
+  # Nacos 健康检查（可选）
+  - job_name: nacos
+    metrics_path: /nacos/actuator/prometheus
+    static_configs:
+      - targets:
+          - nacos:8848
+    scrape_interval: 30s
+    # Nacos 2.x 默认无 prometheus 端点，此处仅作占位；生产请用 Nacos 自带监控或 K8s probe
