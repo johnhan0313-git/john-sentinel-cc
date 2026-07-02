@@ -1,0 +1,33 @@
+# =============================================================================
+# Spring Cloud Gateway + Sentinel Nacos 规则（独立 Profile）
+# =============================================================================
+# 启用方式（Gateway 项目）：
+#   --spring.profiles.active=prod,nacos,nacos-gateway
+#
+# Maven 依赖：
+#   spring-cloud-starter-alibaba-sentinel-gateway
+# =============================================================================
+
+spring:
+  cloud:
+    sentinel:
+      datasource:
+        gw-flow:
+          nacos:
+            server-addr: ${sentinel.nacos.server-addr:localhost:8848}
+            namespace: ${sentinel.nacos.namespace:}
+            username: ${sentinel.nacos.username:nacos}
+            password: ${sentinel.nacos.password:nacos}
+            group-id: ${sentinel.nacos.group:SENTINEL_GROUP}
+            data-id: ${spring.application.name}-gw-flow-rules
+            rule-type: gw-flow
+
+        gw-api-group:
+          nacos:
+            server-addr: ${sentinel.nacos.server-addr:localhost:8848}
+            namespace: ${sentinel.nacos.namespace:}
+            username: ${sentinel.nacos.username:nacos}
+            password: ${sentinel.nacos.password:nacos}
+            group-id: ${sentinel.nacos.group:SENTINEL_GROUP}
+            data-id: ${spring.application.name}-gw-api-group
+            rule-type: gw-api-group

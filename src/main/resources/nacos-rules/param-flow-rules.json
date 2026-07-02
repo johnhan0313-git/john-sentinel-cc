@@ -1,0 +1,41 @@
+[
+  {
+    "_comment": "场景1: 按 userId 限流 - 查询用户订单",
+    "resource": "queryOrdersByUser",
+    "grade": 1,
+    "paramIdx": 0,
+    "count": 10,
+    "durationInSec": 1
+  },
+  {
+    "_comment": "场景2: 按 userId 限流 - 查询用户信息",
+    "resource": "getUserInfo",
+    "grade": 1,
+    "paramIdx": 0,
+    "count": 20,
+    "durationInSec": 1
+  },
+  {
+    "_comment": "场景3: 按 userId 限流 - 创建订单",
+    "resource": "createOrder",
+    "grade": 1,
+    "paramIdx": 0,
+    "count": 5,
+    "durationInSec": 1
+  },
+  {
+    "_comment": "场景4: 热点参数 + 例外项（特定 userId 单独阈值）",
+    "resource": "getUserInfo",
+    "grade": 1,
+    "paramIdx": 0,
+    "count": 5,
+    "durationInSec": 1,
+    "paramFlowItemList": [
+      {
+        "object": "1001",
+        "class": "java.lang.String",
+        "count": 50
+      }
+    ]
+  }
+]

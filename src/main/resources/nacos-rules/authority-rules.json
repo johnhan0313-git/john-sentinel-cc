@@ -1,0 +1,14 @@
+[
+  {
+    "_comment": "场景1: 黑名单 - 拒绝来自 blocked-app 的 registerUser 调用（strategy=1）",
+    "resource": "registerUser",
+    "limitApp": "blocked-app",
+    "strategy": 1
+  },
+  {
+    "_comment": "场景2: 白名单 - 仅允许 trusted-app 调用 processPayment（strategy=0）",
+    "resource": "processPayment",
+    "limitApp": "trusted-app",
+    "strategy": 0
+  }
+]

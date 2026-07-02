@@ -1,0 +1,112 @@
+# =============================================================================
+# Spring Cloud Alibaba Sentinel + Nacos 动态规则 Demo
+# =============================================================================
+# 启用方式：
+#   java -jar app.jar --spring.profiles.active=dev,nacos
+#   java -jar app.jar --spring.profiles.active=prod,nacos
+#
+# 前置条件：
+#   1. Nacos 已启动（默认 localhost:8848）
+#   2. 执行 scripts/push-nacos-rules.sh 将规则 JSON 推送到 Nacos
+#
+# 规则类型（rule-type）完整列表：
+#   flow         - 流控规则
+#   degrade      - 熔断降级
+#   system       - 系统保护
+#   param-flow   - 热点参数限流
+#   authority    - 来源访问控制（黑白名单）
+#   gw-flow      - 网关流控（仅 Spring Cloud Gateway 项目）
+#   gw-api-group - 网关 API 分组（仅 Spring Cloud Gateway 项目）
+# =============================================================================
+
+sentinel:
+  rules:
+    source: nacos
+
+spring:
+  cloud:
+    sentinel:
+      # 公共 Nacos 连接参数（各 datasource 通过 ${sentinel.nacos.*} 引用）
+      datasource:
+        # -----------------------------------------------------------------
+        # 1. 流控规则 flow
+        #    场景：QPS / 线程数 / 预热 / 匀速排队 / 关联 / 链路
+        # -----------------------------------------------------------------
+        flow:
+          nacos:
+            server-addr: ${sentinel.nacos.server-addr:localhost:8848}
+            namespace: ${sentinel.nacos.namespace:}
+            username: ${sentinel.nacos.username:nacos}
+            password: ${sentinel.nacos.password:nacos}
+            group-id: ${sentinel.nacos.group:SENTINEL_GROUP}
+            data-id: ${spring.application.name}-flow-rules
+            rule-type: flow
+
+        # -----------------------------------------------------------------
+        # 2. 熔断降级 degrade
+        #    场景：慢调用比例 / 异常比例 / 异常数
+        # -----------------------------------------------------------------
+        degrade:
+          nacos:
+            server-addr: ${sentinel.nacos.server-addr:localhost:8848}
+            namespace: ${sentinel.nacos.namespace:}
+            username: ${sentinel.nacos.username:nacos}
+            password: ${sentinel.nacos.password:nacos}
+            group-id: ${sentinel.nacos.group:SENTINEL_GROUP}
+            data-id: ${spring.application.name}-degrade-rules
+            rule-type: degrade
+
+        # -----------------------------------------------------------------
+        # 3. 系统保护 system
+        #    场景：CPU / RT / 线程数 / 入口 QPS / Load
+        # -----------------------------------------------------------------
+        system:
+          nacos:
+            server-addr: ${sentinel.nacos.server-addr:localhost:8848}
+            namespace: ${sentinel.nacos.namespace:}
+            username: ${sentinel.nacos.username:nacos}
+            password: ${sentinel.nacos.password:nacos}
+            group-id: ${sentinel.nacos.group:SENTINEL_GROUP}
+            data-id: ${spring.application.name}-system-rules
+            rule-type: system
+
+        # -----------------------------------------------------------------
+        # 4. 热点参数限流 param-flow
+        #    场景：按 userId / productId 等参数维度限流
+        # -----------------------------------------------------------------
+        param-flow:
+          nacos:
+            server-addr: ${sentinel.nacos.server-addr:localhost:8848}
+            namespace: ${sentinel.nacos.namespace:}
+            username: ${sentinel.nacos.username:nacos}
+            password: ${sentinel.nacos.password:nacos}
+            group-id: ${sentinel.nacos.group:SENTINEL_GROUP}
+            data-id: ${spring.application.name}-param-flow-rules
+            rule-type: param-flow
+
+        # -----------------------------------------------------------------
+        # 5. 来源访问控制 authority
+        #    场景：按调用来源（limitApp / Origin）黑白名单
+        #    需在请求中设置 ContextUtil.getContext().setOrigin("app-name")
+        # -----------------------------------------------------------------
+        authority:
+          nacos:
+            server-addr: ${sentinel.nacos.server-addr:localhost:8848}
+            namespace: ${sentinel.nacos.namespace:}
+            username: ${sentinel.nacos.username:nacos}
+            password: ${sentinel.nacos.password:nacos}
+            group-id: ${sentinel.nacos.group:SENTINEL_GROUP}
+            data-id: ${spring.application.name}-authority-rules
+            rule-type: authority
+
+# Nacos 连接公共配置（可按环境覆盖）
+sentinel.nacos:
+  server-addr: localhost:8848
+  namespace:
+  username: nacos
+  password: nacos
+  group: SENTINEL_GROUP
+
+logging:
+  level:
+    com.alibaba.cloud.sentinel.datasource: DEBUG

@@ -1,0 +1,22 @@
+[
+  {
+    "_comment": "CPU 使用率超过 80% 触发系统保护",
+    "highestCpuUsage": 0.8
+  },
+  {
+    "_comment": "系统平均 RT 超过 1000ms 触发保护",
+    "avgRt": 1000
+  },
+  {
+    "_comment": "系统并发线程数超过 200 触发保护",
+    "maxThread": 200
+  },
+  {
+    "_comment": "系统入口 QPS 超过 500 触发保护",
+    "qps": 500
+  },
+  {
+    "_comment": "系统 Load 超过 3.0 触发保护（仅 Linux/Unix 有效）",
+    "highestSystemLoad": 3.0
+  }
+]

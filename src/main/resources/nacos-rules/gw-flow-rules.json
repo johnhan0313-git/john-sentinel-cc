@@ -1,0 +1,22 @@
+[
+  {
+    "_comment": "Gateway 场景1: 按路由 ID 限流（resource 为 routeId）",
+    "resource": "order-service-route",
+    "resourceMode": 0,
+    "grade": 1,
+    "count": 500,
+    "intervalSec": 1,
+    "controlBehavior": 0,
+    "burst": 0,
+    "maxQueueingTimeoutMs": 500
+  },
+  {
+    "_comment": "Gateway 场景2: 按 API 分组限流（resourceMode=1，resource 为 apiName）",
+    "resource": "order-api-group",
+    "resourceMode": 1,
+    "grade": 1,
+    "count": 1000,
+    "intervalSec": 1,
+    "controlBehavior": 0
+  }
+]

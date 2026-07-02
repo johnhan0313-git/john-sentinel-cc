@@ -1,0 +1,69 @@
+[
+  {
+    "_comment": "场景1: QPS 限流 + 直接拒绝（controlBehavior=0）",
+    "resource": "createOrder",
+    "limitApp": "default",
+    "grade": 1,
+    "count": 100,
+    "strategy": 0,
+    "controlBehavior": 0
+  },
+  {
+    "_comment": "场景2: QPS 限流 + 预热 Warm Up（controlBehavior=1）",
+    "resource": "queryOrder",
+    "limitApp": "default",
+    "grade": 1,
+    "count": 200,
+    "strategy": 0,
+    "controlBehavior": 1,
+    "warmUpPeriodSec": 10
+  },
+  {
+    "_comment": "场景3: 并发线程数限流（grade=0）",
+    "resource": "processPayment",
+    "limitApp": "default",
+    "grade": 0,
+    "count": 50,
+    "strategy": 0,
+    "controlBehavior": 0
+  },
+  {
+    "_comment": "场景4: QPS 限流 + 匀速排队（controlBehavior=2）",
+    "resource": "registerUser",
+    "limitApp": "default",
+    "grade": 1,
+    "count": 10,
+    "strategy": 0,
+    "controlBehavior": 2,
+    "maxQueueingTimeMs": 5000
+  },
+  {
+    "_comment": "场景5: 基础 QPS 限流",
+    "resource": "callThirdPartyApi",
+    "limitApp": "default",
+    "grade": 1,
+    "count": 20,
+    "strategy": 0,
+    "controlBehavior": 0
+  },
+  {
+    "_comment": "场景6: 关联限流 - 当 queryOrder 达阈值时限流 createOrder（strategy=1）",
+    "resource": "createOrder",
+    "limitApp": "default",
+    "grade": 1,
+    "count": 50,
+    "strategy": 1,
+    "refResource": "queryOrder",
+    "controlBehavior": 0
+  },
+  {
+    "_comment": "场景7: 链路限流 - 仅限制特定调用链（strategy=2，需 web-context-unify=false）",
+    "resource": "cancelOrder",
+    "limitApp": "default",
+    "grade": 1,
+    "count": 30,
+    "strategy": 2,
+    "refResource": "createOrder",
+    "controlBehavior": 0
+  }
+]

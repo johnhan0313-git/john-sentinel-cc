@@ -1,0 +1,26 @@
+[
+  {
+    "_comment": "Gateway API 分组定义：将多个路由 pattern 聚合为一个 apiName",
+    "apiName": "order-api-group",
+    "predicateItems": [
+      {
+        "pattern": "/api/order/**",
+        "matchStrategy": 0
+      },
+      {
+        "pattern": "/api/payment/**",
+        "matchStrategy": 0
+      }
+    ]
+  },
+  {
+    "_comment": "用户服务 API 分组",
+    "apiName": "user-api-group",
+    "predicateItems": [
+      {
+        "pattern": "/api/user/**",
+        "matchStrategy": 0
+      }
+    ]
+  }
+]

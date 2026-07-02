@@ -1,7 +1,20 @@
 # 生产环境配置
 spring:
   application:
-    name: john-sentinel-cc-prod
+    name: john-sentinel-cc
+  profiles:
+    include: nacos
+
+sentinel:
+  rules:
+    source: nacos
+
+sentinel.nacos:
+  server-addr: ${NACOS_SERVER:localhost:8848}
+  namespace: ${NACOS_NAMESPACE:}
+  username: ${NACOS_USERNAME:nacos}
+  password: ${NACOS_PASSWORD:nacos}
+  group: SENTINEL_GROUP
 
 # Sentinel 生产环境配置
 spring.cloud.sentinel:
